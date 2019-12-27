@@ -1,6 +1,6 @@
 <template lang='pug'>
-  dev
-    It is Game board.
+  div
+    p It is Game board.
 </template>
 
 <script>
