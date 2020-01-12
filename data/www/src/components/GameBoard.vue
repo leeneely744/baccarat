@@ -1,10 +1,19 @@
 <template lang='pug'>
-  div This is GameBoard component.
+  div
+    div This is GameBoard component.
+    div {{ msg }}
 </template>
 
-<scripts>
-
-</scripts>
+<script>
+export default {
+  name: 'GameBoard',
+  data () {
+    return {
+      msg: "data's message"
+    }
+  }
+}
+</script>
 
 <style>
 

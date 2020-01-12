@@ -1,12 +1,18 @@
 <template lang='pug'>
   div#game-panel
-    div#game-board-panel This is game bord panel.
+    GameBoard#game-board-area
     div#ruled-line-panel This is ruled line area.
     div#info-panel This is information panel.
 </template>
 
 <script>
-console.log('Hello')
+import GameBoard from './GameBoard'
+
+export default {
+  components: {
+    GameBoard
+  }
+}
 </script>
 
 <style>
