@@ -1,13 +1,14 @@
 <template lang='pug'>
   div
-    div This is GameState component.
+    div Coin is {{ coin }}
 </template>
 
 <script>
 export default {
-  name: 'game-state',
+  name: 'game-state'
 }
+</script>
 
 <style>
 
-</stule>
+</style>

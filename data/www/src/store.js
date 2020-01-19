@@ -7,11 +7,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    coin: [
-      {
-        budget: 0
-      }
-    ]
+    coin: 0
   },
   mutations: {
     increment (state, amount) {

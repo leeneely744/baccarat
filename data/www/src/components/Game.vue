@@ -12,7 +12,7 @@ import GameState from './GameState'
 export default {
   components: {
     GameBoard,
-    GameState,
+    GameState
   }
 }
 </script>
