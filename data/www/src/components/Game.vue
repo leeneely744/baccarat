@@ -2,15 +2,17 @@
   div#game-panel
     game-board#game-board-area
     div#ruled-line-panel This is ruled line area.
-    div#info-panel This is information panel.
+    game-state#info-panel
 </template>
 
 <script>
 import GameBoard from './GameBoard'
+import GameState from './GameState'
 
 export default {
   components: {
-    GameBoard
+    GameBoard,
+    GameState,
   }
 }
 </script>
