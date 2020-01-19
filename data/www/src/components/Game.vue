@@ -1,6 +1,6 @@
 <template lang='pug'>
   div#game-panel
-    GameBoard#game-board-area
+    game-board#game-board-area
     div#ruled-line-panel This is ruled line area.
     div#info-panel This is information panel.
 </template>
