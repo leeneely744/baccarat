@@ -5,7 +5,12 @@
 
 <script>
 export default {
-  name: 'game-state'
+  name: 'game-state',
+  computed: {
+    coin () {
+      return this.$store.state.coin
+    }
+  }
 }
 </script>
 
