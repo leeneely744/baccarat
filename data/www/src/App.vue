@@ -1,7 +1,7 @@
 <template lang='pug'>
   div#game-panel
     game-board#game-board-area
-    div#ruled-line-panel This is ruled line area.
+    div#ruled-line-panel This is {{ coin }}
     game-state#info-panel
 </template>
 
@@ -13,6 +13,11 @@ export default {
   components: {
     GameBoard,
     GameState
+  },
+  computed: {
+    coin () {
+      return this.$store.state.coin
+    }
   }
 }
 </script>
