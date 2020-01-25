@@ -4,9 +4,17 @@
     div 所持しているチップ
       table
         tr
-          th 10,000円チップ：{{ tip1000 }}
+          th 1,000円チップ：{{ tip1000 }}
           th
-            button(v-on:click="addTip1000(1)") 1000円チップ追加
+            button(v-on:click="addTip1000(1)") 1,000円チップ追加
+        tr
+          th 5,000円チップ：{{ tip5000 }}
+          th
+            button(v-on:click="addTip5000(1)") 5,000円チップ追加
+        tr
+          th 10,000円チップ：{{ tip10000 }}
+          th
+            button(v-on:click="addTip10000(1)") 10,000円チップ追加
 </template>
 
 <script>
@@ -21,7 +29,9 @@ export default {
     tip10000: state => state.tip.tip10000
   }),
   methods: mapMutations([
-    'addTip1000'
+    'addTip1000',
+    'addTip5000',
+    'addTip10000'
   ])
 }
 </script>
