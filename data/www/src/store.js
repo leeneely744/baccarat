@@ -16,8 +16,13 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    increment (state, amount) {
+    addUsedMoney (state, amount) {
       state.usedMoney += amount
+    },
+    addTip1000 (state, tipNum) {
+      console.log('tipNum = ', tipNum)
+      state.tip.tip1000 += tipNum
+      state.usedMoney += 1000 * tipNum
     }
   }
 })
