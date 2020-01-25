@@ -7,11 +7,17 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    coin: 0
+    coin: 0,
+    usedMoney: 0,
+    tip: {
+      tip1000: 0, // 1000円分のチップ
+      tip5000: 0, // 5000円分のチップ
+      tip10000: 0 // 10000円分のチップ
+    }
   },
   mutations: {
     increment (state, amount) {
-      state.coin += amount
+      state.usedMoney += amount
     }
   }
 })
