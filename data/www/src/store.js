@@ -17,17 +17,9 @@ export default new Vuex.Store({
     addUsedMoney (state, amount) {
       state.usedMoney += amount
     },
-    addTip1000 (state, tipNum) {
-      state.tip.tip1000 += tipNum
-      state.usedMoney += 1000 * tipNum
-    },
-    addTip5000 (state, tipNum) {
-      state.tip.tip5000 += tipNum
-      state.usedMoney += 5000 * tipNum
-    },
-    addTip10000 (state, tipNum) {
-      state.tip.tip10000 += tipNum
-      state.usedMoney += 10000 * tipNum
+    addTip (state, payload) {
+      state.tip[`tip${payload.unit}`] += payload.amount
+      state.usedMoney += payload.unit * payload.amount
     }
   }
 })
