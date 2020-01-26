@@ -3,17 +3,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import { tipState } from './tip'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     coin: 0,
     usedMoney: 0,
-    tip: {
-      tip1000: 0, // 1000円分のチップ
-      tip5000: 0, // 5000円分のチップ
-      tip10000: 0 // 10000円分のチップ
-    }
+    tip: tipState
   },
   mutations: {
     addUsedMoney (state, amount) {
