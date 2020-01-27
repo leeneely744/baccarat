@@ -9,7 +9,6 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    coin: 0,
     usedMoney: 0,
     tip: tipState
   },
