@@ -1,16 +1,16 @@
 <template lang='pug'>
   div
     div This is game-board component.
-    div {{ msg }}
+    card(cardNum=1 picture='club')
 </template>
 
 <script>
+import card from './Card'
+
 export default {
   name: 'game-board',
-  data () {
-    return {
-      msg: "data's message"
-    }
+  components: {
+    card
   }
 }
 </script>
