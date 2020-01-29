@@ -29,16 +29,8 @@ export let drawCardFromDeck = (deck = {}) => {
   return {result, deck}
 }
 
-/**
- * デッキを初期化する関数
- */
-export let initDeck = (deck) => {
-  return _.forEach(deck, function (pic) {
-    pic.fill(false)
-  })
-}
-
 // 絵柄一つ分のカード束
+// falseだと「まだ引かれてない」を表す
 const cards = {
   '1': false,
   '2': false,
@@ -55,11 +47,8 @@ const cards = {
   '13': false
 }
 
-/**
- * デッキ
- * falseだと「まだ引かれてない」を表す
- */
-export let deck = {
+// デッキの初期状態
+export let deckInit = {
   'club': cards,
   'diamond': cards,
   'heart': cards,
