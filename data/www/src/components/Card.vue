@@ -19,8 +19,14 @@ export default {
   },
   computed: {
     image: function () {
-      const filename = `${this.picture}_${this.cardNum.padStart(2, '0')}`
-      return require(`../assets/card_${filename}.png`)
+      if (this.picture === null || this.picture === undefined) {
+        return require(`../assets/card_back.png`)
+      } else if (this.cardNum === null || this.cardNum === undefined) {
+        return require(`../assets/card_back.png`)
+      } else {
+        const filename = `${this.picture}_${this.cardNum.padStart(2, '0')}`
+        return require(`../assets/card_${filename}.png`)
+      }
     }
   }
 }

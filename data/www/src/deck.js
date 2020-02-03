@@ -1,7 +1,5 @@
 // カードデッキに関する設定などを書く
 
-import _ from 'lodash'
-
 /**
  * 渡されたデッキから、任意の枚数のカードを引く
  * @param {引く対象のデッキ} deck Object
@@ -18,7 +16,10 @@ export let drawCardFromDeck = (deck = {}) => {
   let drawedNum = cards.length()
   let targetCardNum = cards[Math.floor(Math.random() * Math.floor(drawedNum))]
 
-  let result = {[targetPic]: targetCardNum}
+  let result = {
+    'cardNum': targetCardNum,
+    'picture': targetPic
+  }
   delete deck[targetPic][targetCardNum]
 
   // もし特定の絵柄に属するカードが全てなくなったら、絵柄を削除する
