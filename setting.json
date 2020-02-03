@@ -1,0 +1,53 @@
+{
+  "workbench.iconTheme": "material-icon-theme",
+  "editor.fontSize": 14,
+  "editor.tabSize": 2,
+  "editor.wordWrap": "on",
+  "editor.minimap.enabled": false,
+  "files.trimTrailingWhitespace": true,
+  "files.trimFinalNewlines": true,
+  "files.insertFinalNewline": true,
+  "editor.renderControlCharacters": true,
+  "breadcrumbs.enabled": true,
+  "files.exclude": {
+      "**/.gif": true,
+      "**/.jpg": true,
+      "**/.png": true,
+      "**/.svg": true,
+      "**/*.map": true,
+      "**/*.dll": true,
+      "**/bin": true
+  },
+  "files.watcherExclude": {
+      "**/images/**": true,
+      "**/img/**": true,
+      "**/swf/**": true
+  },
+  "files.associations": {
+      ".*lintrc": "json"
+  },
+  "search.exclude": {
+      "**/.history": true,
+      "**/.idea": true,
+      "**/.sass-cache": true,
+      "**/.vscode": true,
+      "**/.git": true,
+      "**/.svn": true,
+      "**/node_modules": true,
+      "**/bower_components": true,
+      "**/tmp": true
+  },
+  "search.useIgnoreFilesByDefault": false,
+  "emmet.variables": {
+      "lang": "ja"
+  },
+  "emmet.showAbbreviationSuggestions": true,
+  "emmet.showExpandedAbbreviation": "always",
+  "emmet.includeLanguages": {
+      "vue-html": "html",
+      "vue": "html"
+  },
+  "[markdown]": {
+      "files.trimTrailingWhitespace": false
+  }
+}
