@@ -2,9 +2,21 @@
   <div>
     <div>
       Banker's field
+      <div class="card-field">
+        <card card-num="1" picture="club" ></card>
+      </div>
+      <div class="card-field">
+        <card card-num="2" picture="club" ></card>
+      </div>
     </div>
-    <div class="card-field">
-      <card card-num="1" picture="club" ></card>
+    <div>
+      Player's field
+      <div class="card-field">
+        <card card-num="1" picture="diamond" ></card>
+      </div>
+      <div class="card-field">
+        <card card-num="2" picture="diamond" ></card>
+      </div>
     </div>
     <button v-on:click="play()">ゲーム開始！</button>
   </div>
