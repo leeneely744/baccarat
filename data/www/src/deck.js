@@ -3,21 +3,21 @@
 /**
  * 渡されたデッキから、任意の枚数のカードを引く
  * @param {引く対象のデッキ} deck Object
- * @returns {引いたカードの名前, カードを引いた後のデッキ}
+ * @returns {'card': 引いたカードの名前, 'deck': カードを引いた後のデッキ}
  */
 export let drawCardFromDeck = (deck = {}) => {
-  let keys = Object.keys(deck)
-  let keysNum = keys.length()
+  let deckNum = deck.length
 
-  if (keysNum === 0) { return null }
+  if (deckNum === 0) { return null }
 
   // ランダム1枚引く
-  let cardName = keys[Math.floor(Math.random() * Math.floor(keysNum))]
+  let cardName = deck[Math.floor(Math.random() * Math.floor(deckNum))]
 
   // 引かれたカードはデッキから消す
-  delete deck[cardName]
+  const newDeck = deck.filter(n => n !== cardName)
+  console.log('cardName = ', cardName)
 
-  return {cardName, deck}
+  return {'card': cardName, 'deck': newDeck}
 }
 
 // デッキの初期状態
