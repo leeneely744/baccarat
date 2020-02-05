@@ -3,7 +3,7 @@
 /**
  * 渡されたデッキから、任意の枚数のカードを引く
  * @param {引く対象のデッキ} deck Object
- * @returns {{'絵柄': '数字'}, カードを引いた後のデッキ}
+ * @returns {引いたカードの名前, カードを引いた後のデッキ}
  */
 export let drawCardFromDeck = (deck = {}) => {
   let keys = Object.keys(deck)
@@ -11,47 +11,75 @@ export let drawCardFromDeck = (deck = {}) => {
 
   if (keysNum === 0) { return null }
 
-  let targetPic = keys[Math.floor(Math.random() * Math.floor(keysNum))]
-  let cards = Object.keys(deck[targetPic])
-  let drawedNum = cards.length()
-  let targetCardNum = cards[Math.floor(Math.random() * Math.floor(drawedNum))]
+  // ランダム1枚引く
+  let cardName = keys[Math.floor(Math.random() * Math.floor(keysNum))]
 
-  let result = {
-    'cardNum': targetCardNum,
-    'picture': targetPic
-  }
-  delete deck[targetPic][targetCardNum]
+  // 引かれたカードはデッキから消す
+  delete deck[cardName]
 
-  // もし特定の絵柄に属するカードが全てなくなったら、絵柄を削除する
-  if (Object.keys(deck[targetPic]).length() === 0) {
-    delete deck[targetPic]
-  }
-
-  return {result, deck}
-}
-
-// 絵柄一つ分のカード束
-// falseだと「まだ引かれてない」を表す
-const cards = {
-  '1': false,
-  '2': false,
-  '3': false,
-  '4': false,
-  '5': false,
-  '6': false,
-  '7': false,
-  '8': false,
-  '9': false,
-  '10': false,
-  '11': false,
-  '12': false,
-  '13': false
+  return {cardName, deck}
 }
 
 // デッキの初期状態
-export let deckInit = {
-  'club': cards,
-  'diamond': cards,
-  'heart': cards,
-  'spade': cards
-}
+// falseだと「まだ引かれてない」を表す
+/**
+ * デッキの初期状態
+ * 引いたカードは配列から消していく
+ * assetsのpngファイル名に依存しているので勝手に書き換えない
+ * 
+ * TODO: もっといい書き方があると思う
+ */
+export let deckInit = [
+  'club_01',
+  'club_02',
+  'club_03',
+  'club_04',
+  'club_05',
+  'club_06',
+  'club_07',
+  'club_08',
+  'club_09',
+  'club_10',
+  'club_11',
+  'club_12',
+  'club_13',
+  'diamond_01',
+  'diamond_02',
+  'diamond_03',
+  'diamond_04',
+  'diamond_05',
+  'diamond_06',
+  'diamond_07',
+  'diamond_08',
+  'diamond_09',
+  'diamond_10',
+  'diamond_11',
+  'diamond_12',
+  'diamond_13',
+  'heart_01',
+  'heart_02',
+  'heart_03',
+  'heart_04',
+  'heart_05',
+  'heart_06',
+  'heart_07',
+  'heart_08',
+  'heart_09',
+  'heart_10',
+  'heart_11',
+  'heart_12',
+  'heart_13',
+  'spade_01',
+  'spade_02',
+  'spade_03',
+  'spade_04',
+  'spade_05',
+  'spade_06',
+  'spade_07',
+  'spade_08',
+  'spade_09',
+  'spade_10',
+  'spade_11',
+  'spade_12',
+  'spade_13'
+]
