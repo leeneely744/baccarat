@@ -25,7 +25,9 @@ export default {
   computed: {
     ...mapState([
       'banker',
-      'player'
+      'player',
+      'bankerSum',
+      'playerSum'
     ])
   },
   components: {

@@ -5,6 +5,7 @@ import Vuex from 'vuex'
 
 import { tipState } from './tip'
 import { drawCardFromDeck, deckInit } from './deck'
+import { getCardNum } from './geme'
 
 Vue.use(Vuex)
 
@@ -22,6 +23,20 @@ export default new Vuex.Store({
       card1: null,
       card2: null,
       card3: null
+    }
+  },
+  getters: {
+    bankerSum (state) {
+      let card1 = getCardNum(state.banker.card1)
+      let card2 = getCardNum(state.banker.card2)
+      let card3 = getCardNum(state.banker.card3)
+      return card1 + card2 + card3
+    },
+    playerSum (state) {
+      let card1 = getCardNum(state.player.card1)
+      let card2 = getCardNum(state.player.card2)
+      let card3 = getCardNum(state.player.card3)
+      return card1 + card2 + card3
     }
   },
   mutations: {
