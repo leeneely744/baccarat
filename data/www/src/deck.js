@@ -15,7 +15,6 @@ export let drawCardFromDeck = (deck = {}) => {
 
   // 引かれたカードはデッキから消す
   const newDeck = deck.filter(n => n !== cardName)
-  console.log('cardName = ', cardName)
 
   return {'card': cardName, 'deck': newDeck}
 }
@@ -26,7 +25,6 @@ export let drawCardFromDeck = (deck = {}) => {
  * デッキの初期状態
  * 引いたカードは配列から消していく
  * assetsのpngファイル名に依存しているので勝手に書き換えない
- * 
  * TODO: もっといい書き方があると思う
  */
 export let deckInit = [

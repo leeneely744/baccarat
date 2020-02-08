@@ -14,14 +14,19 @@ export default new Vuex.Store({
     tip: tipState,
     deck: deckInit,
     banker: {
-      b_card1: null,
-      b_card2: null,
-      b_card3: null
+      card1: null,
+      card2: null,
+      card3: null
     },
     player: {
-      p_card1: null,
-      p_card2: null,
-      p_card3: null
+      card1: null,
+      card2: null,
+      card3: null
+    }
+  },
+  getter: {
+    fetchDrawnCard: (state) => (people, seq) => {
+      return state[people][seq]
     }
   },
   mutations: {
@@ -32,16 +37,12 @@ export default new Vuex.Store({
       state.tip[`tip${payload.unit}`] += payload.amount
       state.usedMoney += payload.unit * payload.amount
     },
-    drawing (state) {
-      let {drawnCard, newDeck} = drawCardFromDeck(state.deck)
-      state.deck = newDeck
-      return drawnCard
-    },
-    play (state) {
-      state.banker.card1 = this.drawing()
-      state.banker.card2 = this.drawing()
-      state.player.card1 = this.drawing()
-      state.player.card2 = this.drawing()
+    drawing (state, payload) {
+      let result = drawCardFromDeck(state.deck)
+      let people = payload['people']
+      let seq = payload['seq']
+      state.deck = result.deck
+      state[people][seq] = result.card
     }
   }
 })

@@ -10,7 +10,7 @@ export default {
   props: {
     cardName: {
       type: String,
-      required: true
+      required: false
     }
   },
   computed: {

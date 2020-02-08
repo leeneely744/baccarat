@@ -3,7 +3,13 @@
     <div>
       Banker's field
       <div class="card-field">
-        <card card-name='spade_08' />
+        <card :card-name="banker.card1" />
+        <card :card-name="banker.card2" />
+      </div>
+      Player's field
+      <div class="card-field">
+        <card :card-name="player.card1" />
+        <card :card-name="player.card2" />
       </div>
     </div>
     <button v-on:click="play()">ゲーム開始！</button>
@@ -18,12 +24,8 @@ export default {
   name: 'game-board',
   computed: {
     ...mapState([
-      'b_card1',
-      'b_card2',
-      'b_card3',
-      'p_card1',
-      'p_card2',
-      'p_card3'
+      'banker',
+      'player'
     ])
   },
   components: {
@@ -31,8 +33,14 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'play'
-    ])
+      'drawing'
+    ]),
+    play () {
+      this.$store.commit('drawing', {'people': 'banker', 'seq': 'card1'})
+      this.$store.commit('drawing', {'people': 'banker', 'seq': 'card2'})
+      this.$store.commit('drawing', {'people': 'player', 'seq': 'card1'})
+      this.$store.commit('drawing', {'people': 'player', 'seq': 'card2'})
+    }
   }
 }
 </script>
