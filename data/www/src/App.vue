@@ -16,11 +16,6 @@ export default {
     GameBoard,
     GameState
   },
-  computed: {
-    coin () {
-      return this.$store.state.coin
-    }
-  },
   methods: {
     show: function () {
       this.$modal.show('hello-world')
