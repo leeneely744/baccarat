@@ -8,6 +8,7 @@
 <script>
 import GameBoard from './components/GameBoard'
 import GameState from './components/GameState'
+import VModal from 'vue-js-modal'
 
 export default {
   components: {
@@ -17,6 +18,14 @@ export default {
   computed: {
     coin () {
       return this.$store.state.coin
+    }
+  },
+  methods: {
+    show: function () {
+      this.$modal.show('hello-world')
+    },
+    hide: function () {
+      this.$modal.hide('hello-world')
     }
   }
 }
