@@ -1,8 +1,9 @@
-<template lang='pug'>
-  div#game-panel
-    game-board#game-board-area
-    div#ruled-line-panel This is {{ coin }}
-    game-state#info-panel
+<template>
+  <div id="game-panel">
+    <game-board id="game-board-area"></game-board>
+    <div id="ruled-line-panel"></div>
+    <game-state id="info-panel"></game-state>
+  </div>
 </template>
 
 <script>
