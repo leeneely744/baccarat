@@ -24,11 +24,6 @@ export default new Vuex.Store({
       card3: null
     }
   },
-  getter: {
-    fetchDrawnCard: (state) => (people, seq) => {
-      return state[people][seq]
-    }
-  },
   mutations: {
     addUsedMoney (state, amount) {
       state.usedMoney += amount
