@@ -1,15 +1,29 @@
 <template>
-  <div id="game-panel">
-    <game-board id="game-board-area"></game-board>
-    <div id="ruled-line-panel"></div>
-    <game-state id="info-panel"></game-state>
+  <div>
+    <modal name="result-modal" :draggable="true" :resizable="true">
+      <div class="modal-header">
+        <h2>ゲーム結果</h2>
+      </div>
+      <div class="modal-body">
+        <p>プレイヤーの点数：{{ this.$store.getters.playerSum }}</p>
+        <button v-on:click="hideModal">閉じる</button>
+      </div>
+    </modal>
+    <div id="game-panel">
+      <game-board
+        id="game-board-area"
+        :show-modal="showModal"
+        :hide-modal="hideModal"
+      />
+      <div id="ruled-line-panel"></div>
+      <game-state id="info-panel"></game-state>
+    </div>
   </div>
 </template>
 
 <script>
 import GameBoard from './components/GameBoard'
 import GameState from './components/GameState'
-import VModal from 'vue-js-modal'
 
 export default {
   components: {
@@ -17,11 +31,11 @@ export default {
     GameState
   },
   methods: {
-    show: function () {
-      this.$modal.show('hello-world')
+    showModal: function () {
+      this.$modal.show('result-modal')
     },
-    hide: function () {
-      this.$modal.hide('hello-world')
+    hideModal: function () {
+      this.$modal.hide('result-modal')
     }
   }
 }
@@ -48,5 +62,12 @@ export default {
 #info-panel {
   grid-area: info-area;
   background-color: #C4F66F;
+}
+
+.modal-header, .modal-body {
+  padding: 5px 25px;
+}
+.modal-header {
+  border-bottom: 1px solid #ddd;
 }
 </style>
