@@ -5,11 +5,13 @@
       <div class="card-field">
         <card :card-name="banker.card1" />
         <card :card-name="banker.card2" />
+        <card :card-name="banker.card3" />
       </div>
       Player's field
       <div class="card-field">
         <card :card-name="player.card1" />
         <card :card-name="player.card2" />
+        <card :card-name="player.card3" />
       </div>
     </div>
     <button v-on:click="play()">ゲーム開始！</button>
