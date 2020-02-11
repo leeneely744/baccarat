@@ -1,20 +1,20 @@
 <template>
   <div>
-    <modal name="result-modal" :draggable="true" :resizable="true">
+    <modal name="result-modal"
+      :draggable="true"
+      @closed="closeAction">
       <div class="modal-header">
         <h2>ゲーム結果</h2>
       </div>
       <div class="modal-body">
         <p>プレイヤーの点数：{{ this.$store.getters.playerSum }}</p>
-        <button v-on:click="hideModal">閉じる</button>
+        <p>追加のカードを引きます</p>
+        <button v-on:click="hideModal">OK</button>
       </div>
     </modal>
-    <div id="game-panel">
-      <game-board
-        id="game-board-area"
-        :show-modal="showModal"
-        :hide-modal="hideModal"
-      />
+    <div id="game-panel"
+      @closed="closeAction">
+      <game-board id="game-board-area"/>
       <div id="ruled-line-panel"></div>
       <game-state id="info-panel"></game-state>
     </div>
@@ -25,10 +25,21 @@
 import GameBoard from './components/GameBoard'
 import GameState from './components/GameState'
 
+import { mapState, mapGetters } from 'vuex'
+import { BASE_VALUE_REDRAW_CARD } from './geme'
+
 export default {
   components: {
     GameBoard,
     GameState
+  },
+  computed: {
+    ...mapGetters([
+      'playerSum'
+    ]),
+    ...mapState([
+      'player'
+    ])
   },
   methods: {
     showModal: function () {
@@ -36,6 +47,23 @@ export default {
     },
     hideModal: function () {
       this.$modal.hide('result-modal')
+    },
+    closeAction: function (methodName) {
+      [methodName]()
+    },
+    isDrawnCard3: function (card3) {
+      if (card3 === null) {
+        return false
+      } else if (card3 === undefined) {
+        return false
+      } else {
+        return true
+      }
+    }
+  },
+  updated: function () {
+    if (this.playerSum < BASE_VALUE_REDRAW_CARD && !this.isDrawnCard3(this.player.card3)) {
+      this.showModal()
     }
   }
 }

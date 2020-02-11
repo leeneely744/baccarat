@@ -18,8 +18,7 @@
 
 <script>
 import card from './Card'
-import { mapState, mapMutations } from 'vuex'
-import { BASE_VALUE_REDRAW_CARD } from '../geme'
+import { mapState, mapMutations, mapActions } from 'vuex'
 
 export default {
   name: 'game-board',
@@ -40,18 +39,10 @@ export default {
     ...mapMutations([
       'drawing'
     ]),
-    play () {
-      this.$store.commit('drawing', {'people': 'banker', 'seq': 'card1'})
-      this.$store.commit('drawing', {'people': 'banker', 'seq': 'card2'})
-      this.$store.commit('drawing', {'people': 'player', 'seq': 'card1'})
-      this.$store.commit('drawing', {'people': 'player', 'seq': 'card2'})
-
-      if (this.$store.getters.playerSum <= BASE_VALUE_REDRAW_CARD) {
-        this.showModal()
-      } else {
-        this.hideModal()
-      }
-    }
+    ...mapActions([
+      'play',
+      'extraPlay'
+    ])
   }
 }
 </script>
