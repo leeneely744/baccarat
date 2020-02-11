@@ -25,7 +25,7 @@
 import GameBoard from './components/GameBoard'
 import GameState from './components/GameState'
 
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 import { BASE_VALUE_REDRAW_CARD } from './geme'
 
 export default {
@@ -48,8 +48,8 @@ export default {
     hideModal: function () {
       this.$modal.hide('result-modal')
     },
-    closeAction: function (methodName) {
-      [methodName]()
+    closeAction: function () {
+      this.extraPlay()
     },
     isDrawnCard3: function (card3) {
       if (card3 === null) {
@@ -59,7 +59,10 @@ export default {
       } else {
         return true
       }
-    }
+    },
+    ...mapActions([
+      'extraPlay'
+    ])
   },
   updated: function () {
     if (this.playerSum < BASE_VALUE_REDRAW_CARD && !this.isDrawnCard3(this.player.card3)) {
