@@ -25,8 +25,8 @@
 import GameBoard from './components/GameBoard'
 import GameState from './components/GameState'
 
-import { mapState, mapGetters, mapActions } from 'vuex'
-import { BASE_VALUE_REDRAW_CARD } from './geme'
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+import { BASE_VALUE_REDRAW_CARD, judgeTheWinner } from './geme'
 
 export default {
   components: {
@@ -35,7 +35,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'playerSum'
+      'playerSum',
+      'bankerSum'
     ]),
     ...mapState([
       'player'
@@ -60,6 +61,9 @@ export default {
         return true
       }
     },
+    ...mapMutations([
+      'pushWinner'
+    ]),
     ...mapActions([
       'extraPlay'
     ])
@@ -67,6 +71,9 @@ export default {
   updated: function () {
     if (this.playerSum < BASE_VALUE_REDRAW_CARD && !this.isDrawnCard3(this.player.card3)) {
       this.showModal()
+    } else {
+      let payload = {'winner': judgeTheWinner(this.playerSum, this.bankerSum)}
+      this.pushWinner(payload)
     }
   }
 }

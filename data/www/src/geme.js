@@ -9,3 +9,13 @@ export let getCardNum = (cardName) => {
   }
   return parseInt(cardName.toString().substr(-2, 2))
 }
+
+export let judgeTheWinner = (playerSum, bankerSum) => {
+  if (playerSum < bankerSum) {
+    return 'banker'
+  } else if (playerSum === bankerSum) {
+    return 'draw'
+  } else {
+    return 'player'
+  }
+}

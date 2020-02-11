@@ -23,7 +23,8 @@ export default new Vuex.Store({
       card1: null,
       card2: null,
       card3: null
-    }
+    },
+    winners: []
   },
   getters: {
     bankerSum (state) {
@@ -53,6 +54,11 @@ export default new Vuex.Store({
       let seq = payload['seq']
       state.deck = result.deck
       state[people][seq] = result.card
+    },
+    pushWinner (state, payload) {
+      let winners = Object.values(state.winners)
+      winners.push(payload.winner)
+      state.winners = winners
     }
   },
   actions: {
