@@ -15,7 +15,7 @@
     <div id="game-panel"
       @closed="closeAction">
       <game-board id="game-board-area"/>
-      <div id="ruled-line-panel"></div>
+      <ruled-line id="ruled-line-panel" />
       <game-state id="info-panel"></game-state>
     </div>
   </div>
@@ -24,6 +24,7 @@
 <script>
 import GameBoard from './components/GameBoard'
 import GameState from './components/GameState'
+import RuledLine from './components/RuledLine'
 
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 import { BASE_VALUE_REDRAW_CARD, judgeTheWinner } from './geme'
@@ -31,7 +32,8 @@ import { BASE_VALUE_REDRAW_CARD, judgeTheWinner } from './geme'
 export default {
   components: {
     GameBoard,
-    GameState
+    GameState,
+    RuledLine
   },
   computed: {
     ...mapGetters([
