@@ -41,7 +41,8 @@ export default {
       'bankerSum'
     ]),
     ...mapState([
-      'player'
+      'player',
+      'banker'
     ])
   },
   methods: {
@@ -68,10 +69,21 @@ export default {
     ]),
     ...mapActions([
       'extraPlay'
-    ])
+    ]),
+    shouldDraw3rdCard: function () {
+      if (
+        this.playerSum < BASE_VALUE_REDRAW_CARD &&
+        !this.isDrawnCard3(this.player.card3) &&
+        this.player.card1 !== undefined &&
+        this.banker.card1 !== undefined
+      ) {
+        return true
+      }
+      return false
+    }
   },
   updated: function () {
-    if (this.playerSum < BASE_VALUE_REDRAW_CARD && !this.isDrawnCard3(this.player.card3)) {
+    if (this.shouldDraw3rdCard() === true) {
       this.showModal()
     } else {
       let payload = {'winner': judgeTheWinner(this.playerSum, this.bankerSum)}
@@ -96,7 +108,6 @@ export default {
 
 #ruled-line-panel {
   grid-area: ruled-line-area;
-  background-color: #B2F63D;
 }
 
 #info-panel {
