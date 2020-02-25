@@ -50,4 +50,38 @@ export default {
   height: 16px;
   border: solid 1px #333;
 }
+
+.banker-mark::before {
+  content: '';
+  width: 11px;
+  height: 11px;
+  border: solid 1px #ff0000;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.player-mark::before {
+  content: '';
+  width: 11px;
+  height: 11px;
+  border: solid 1px #4169e1;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.draw-mark::before {
+  content: '';
+  border: solid 1px #00c92c;
+  position: absolute;
+  height: 13px;
+  left: 40%;
+  transform: rotate(45deg)
+
+}
 </style>
