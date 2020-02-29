@@ -38,6 +38,12 @@ export default new Vuex.Store({
       let card2 = getCardNum(state.player.card2)
       let card3 = getCardNum(state.player.card3)
       return card1 + card2 + card3
+    },
+    countDeck (state) {
+      if (state.deck == null || state.deck === undefined) {
+        return 0
+      }
+      return state.deck.length
     }
   },
   mutations: {
@@ -59,6 +65,9 @@ export default new Vuex.Store({
       let winners = Object.values(state.winners)
       winners.push(payload.winner)
       state.winners = winners
+    },
+    initDeck (state) {
+      state.deck = deckInit
     }
   },
   actions: {

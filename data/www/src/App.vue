@@ -2,7 +2,7 @@
   <div>
     <modal name="indicate-winner-modal"
       :draggable="true"
-      @closed="closeAction">
+      @closed="closeAction('indicate-winner-modal')">
       <div class="modal-header">
         <h2>ゲーム結果</h2>
       </div>
@@ -10,6 +10,17 @@
         <p>プレイヤーの点数：{{ this.$store.getters.playerSum }}</p>
         <p>追加のカードを引きます</p>
         <button v-on:click="hideResultModal">OK</button>
+      </div>
+    </modal>
+    <modal name="init-deck-modal"
+      :draggable="true"
+      @closed="closeAction('init-deck-modal')">
+      <div class="modal-header">
+        <h2>お知らせ</h2>
+      </div>
+      <div class="modal-body">
+        <p>山札が6枚以下になったので、山札を初期化します</p>
+        <button v-on:click="hideInitModal">OK</button>
       </div>
     </modal>
     <div id="game-panel"
@@ -44,7 +55,8 @@ export default {
   computed: {
     ...mapGetters([
       'playerSum',
-      'bankerSum'
+      'bankerSum',
+      'countDeck'
     ]),
     ...mapState([
       'player',
@@ -52,17 +64,24 @@ export default {
     ])
   },
   methods: {
-    showModal: function (modalName) {
-      this.$modal.show(modalName)
+    showModal: function (modalNameArg) {
+      this.$modal.show(modalNameArg)
     },
-    hideModal: function (modalName) {
-      this.$modal.hide(modalName)
+    hideModal: function (modalNameArg) {
+      this.$modal.hide(modalNameArg)
     },
     hideResultModal: function () {
       this.$modal.hide(modalName.indicateWinnerModal)
     },
-    closeAction: function () {
-      this.extraPlay()
+    hideInitModal: function () {
+      this.$modal.hide(modalName.initDeckModal)
+    },
+    closeAction: function (modalNameArg) {
+      if (modalNameArg === modalName.indicateWinnerModal) {
+        this.extraPlay()
+      } else if (modalNameArg === modalName.initDeckModal) {
+        this.initDeck()
+      }
     },
     isDrawnCard3: function (card3) {
       if (card3 === null) {
@@ -74,7 +93,8 @@ export default {
       }
     },
     ...mapMutations([
-      'pushWinner'
+      'pushWinner',
+      'initDeck'
     ]),
     ...mapActions([
       'extraPlay'
@@ -97,6 +117,10 @@ export default {
     } else {
       let payload = {'winner': judgeTheWinner(this.playerSum, this.bankerSum)}
       this.pushWinner(payload)
+    }
+
+    if (this.countDeck <= 6) {
+      this.showModal(modalName.initDeckModal)
     }
   }
 }
