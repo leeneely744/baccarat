@@ -1,6 +1,6 @@
 <template>
   <div>
-    <modal name="result-modal"
+    <modal name="indicate-winner-modal"
       :draggable="true"
       @closed="closeAction">
       <div class="modal-header">
@@ -9,7 +9,7 @@
       <div class="modal-body">
         <p>プレイヤーの点数：{{ this.$store.getters.playerSum }}</p>
         <p>追加のカードを引きます</p>
-        <button v-on:click="hideModal">OK</button>
+        <button v-on:click="hideResultModal">OK</button>
       </div>
     </modal>
     <div id="game-panel"
@@ -29,6 +29,12 @@ import RuledLine from './components/RuledLine'
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 import { BASE_VALUE_REDRAW_CARD, judgeTheWinner } from './geme'
 
+// <modal name="" の値を一覧化する
+const modalName = {
+  initDeckModal: 'init-deck-modal',
+  indicateWinnerModal: 'indicate-winner-modal'
+}
+
 export default {
   components: {
     GameBoard,
@@ -46,11 +52,14 @@ export default {
     ])
   },
   methods: {
-    showModal: function () {
-      this.$modal.show('result-modal')
+    showModal: function (modalName) {
+      this.$modal.show(modalName)
     },
-    hideModal: function () {
-      this.$modal.hide('result-modal')
+    hideModal: function (modalName) {
+      this.$modal.hide(modalName)
+    },
+    hideResultModal: function () {
+      this.$modal.hide(modalName.indicateWinnerModal)
     },
     closeAction: function () {
       this.extraPlay()
@@ -84,7 +93,7 @@ export default {
   },
   updated: function () {
     if (this.shouldDraw3rdCard() === true) {
-      this.showModal()
+      this.showModal(modalName.indicateWinnerModal)
     } else {
       let payload = {'winner': judgeTheWinner(this.playerSum, this.bankerSum)}
       this.pushWinner(payload)
