@@ -24,10 +24,6 @@ import { mapState, mapMutations, mapActions } from 'vuex'
 
 export default {
   name: 'game-board',
-  props: {
-    showModal: Function,
-    hideModal: Function
-  },
   computed: {
     ...mapState([
       'banker',
