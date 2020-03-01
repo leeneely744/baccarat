@@ -14,7 +14,7 @@
         <card :card-name="player.card3" />
       </div>
     </div>
-    <button v-on:click="play()">ゲーム開始！</button>
+    <button v-on:click="onClickPlayButton">ゲーム開始！</button>
   </div>
 </template>
 
@@ -24,6 +24,12 @@ import { mapState, mapMutations, mapActions } from 'vuex'
 
 export default {
   name: 'game-board',
+  props: {
+    afterPlay: {
+      type: Function,
+      required: true
+    }
+  },
   computed: {
     ...mapState([
       'banker',
@@ -40,7 +46,12 @@ export default {
     ...mapActions([
       'play',
       'extraPlay'
-    ])
+    ]),
+    onClickPlayButton: function () {
+      this.play()
+      console.log('under play')
+      this.afterPlay()
+    }
   }
 }
 </script>

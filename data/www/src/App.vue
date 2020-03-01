@@ -25,7 +25,7 @@
     </modal>
     <div id="game-panel"
       @closed="closeAction">
-      <game-board id="game-board-area"/>
+      <game-board id="game-board-area" :after-play="afterPlay"/>
       <ruled-line id="ruled-line-panel" />
       <game-state id="info-panel"></game-state>
     </div>
@@ -109,18 +109,18 @@ export default {
         return true
       }
       return false
-    }
-  },
-  updated: function () {
-    if (this.shouldDraw3rdCard() === true) {
-      this.showModal(modalName.indicateWinnerModal)
-    } else {
-      let payload = {'winner': judgeTheWinner(this.playerSum, this.bankerSum)}
-      this.pushWinner(payload)
-    }
+    },
+    afterPlay: function () {
+      if (this.shouldDraw3rdCard() === true) {
+        this.showModal(modalName.indicateWinnerModal)
+      } else {
+        let payload = {'winner': judgeTheWinner(this.playerSum, this.bankerSum)}
+        this.pushWinner(payload)
+      }
 
-    if (this.countDeck <= 6) {
-      this.showModal(modalName.initDeckModal)
+      if (this.countDeck <= 6) {
+        this.showModal(modalName.initDeckModal)
+      }
     }
   }
 }

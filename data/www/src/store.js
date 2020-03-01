@@ -76,6 +76,7 @@ export default new Vuex.Store({
       ctx.commit('drawing', {'people': 'banker', 'seq': 'card2'})
       ctx.commit('drawing', {'people': 'player', 'seq': 'card1'})
       ctx.commit('drawing', {'people': 'player', 'seq': 'card2'})
+      console.log('end of play function')
     },
     extraPlay (ctx) {
       ctx.commit('drawing', {'people': 'banker', 'seq': 'card3'})
