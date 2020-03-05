@@ -44,12 +44,10 @@ export default {
       'drawing'
     ]),
     ...mapActions([
-      'play',
-      'extraPlay'
+      'play'
     ]),
     onClickPlayButton: function () {
       this.play()
-      console.log('under play')
       this.afterPlay()
     }
   }
