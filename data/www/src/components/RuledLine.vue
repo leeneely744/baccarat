@@ -16,6 +16,12 @@ const RULED_LINE_HEIGHT = 16
 
 export default {
   name: 'ruled-line',
+  props: {
+    gameResults: {
+      type: Array,
+      required: true
+    }
+  },
   data: function () {
     return {
       width: RULED_LINE_WIDTH,

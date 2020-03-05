@@ -26,7 +26,7 @@
     <div id="game-panel"
       @closed="closeAction">
       <game-board id="game-board-area" :after-play="afterPlay"/>
-      <ruled-line id="ruled-line-panel" />
+      <ruled-line id="ruled-line-panel" :game-results="this.winners"/>
       <game-state id="info-panel"></game-state>
     </div>
   </div>
@@ -60,7 +60,8 @@ export default {
     ]),
     ...mapState([
       'player',
-      'banker'
+      'banker',
+      'winners'
     ])
   },
   methods: {
