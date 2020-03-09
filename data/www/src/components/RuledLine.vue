@@ -3,7 +3,7 @@
     <div id='ruled-line-base'>
       <div v-for="x in width" :key=x>
         <div v-for="y in height" :key=y>
-          <div class="square"/>
+          <div class="square" v-bind:class="getSquareClass(x, y)"/>
         </div>
       </div>
     </div>
@@ -25,7 +25,54 @@ export default {
   data: function () {
     return {
       width: RULED_LINE_WIDTH,
-      height: RULED_LINE_HEIGHT
+      height: RULED_LINE_HEIGHT,
+      squareClasses: []
+    }
+  },
+  computed: {
+    getSquareClass: function () {
+      // こうしないと引数が渡せない
+      return function (row, column) {
+        // initSquareClasses()で予め保存しておいた2次元配列のdataにアクセスする
+        // もし排列要素がなければ''を返す。
+        if (this.$data.squareClasses[column] === undefined) {
+          return ''
+        }
+        if (this.$data.squareClasses[column][row] === undefined) {
+          return ''
+        }
+        return this.$data.squareClasses[column][row]
+      }
+    }
+  },
+  methods: {
+    initSquareClasses: function () {
+      let rightShiftCount = 0
+      let index = 0
+      let classArray = new Array(RULED_LINE_WIDTH)
+      let tmpColum = new Array(RULED_LINE_HEIGHT)
+      let preResult = 'draw'
+      this.gameResults.forEach(result => {
+        if (rightShiftCount > 0 && preResult !== result && preResult !== 'draw') {
+          rightShiftCount++
+        }
+
+        tmpColum[index] = result
+        index++
+        if (result === 'draw') {
+          index = 0
+          rightShiftCount++
+        }
+        classArray[rightShiftCount] = tmpColum
+
+        preResult = result
+      })
+      return classArray
+    }
+  },
+  watch: {
+    gameResults: function () {
+      this.$data.squareClasses = this.initSquareClasses()
     }
   }
 }
