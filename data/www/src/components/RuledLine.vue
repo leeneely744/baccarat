@@ -33,15 +33,18 @@ export default {
     getSquareClass: function () {
       // こうしないと引数が渡せない
       return function (row, column) {
+        // rowもcolumnも1から始まっているため
+        row--
+        column--
         // initSquareClasses()で予め保存しておいた2次元配列のdataにアクセスする
         // もし排列要素がなければ''を返す。
-        if (this.$data.squareClasses[column] === undefined) {
+        if (this.$data.squareClasses[row] === undefined) {
           return ''
         }
-        if (this.$data.squareClasses[column][row] === undefined) {
+        if (this.$data.squareClasses[row][column] === undefined) {
           return ''
         }
-        return this.$data.squareClasses[column][row]
+        return this.$data.squareClasses[row][column]
       }
     }
   },
@@ -104,7 +107,7 @@ export default {
   border: solid 1px #333;
 }
 
-.banker-mark::before {
+.banker::before {
   content: '';
   width: 11px;
   height: 11px;
@@ -116,7 +119,7 @@ export default {
   transform: translate(-50%, -50%);
 }
 
-.player-mark::before {
+.player::before {
   content: '';
   width: 11px;
   height: 11px;
@@ -128,7 +131,7 @@ export default {
   transform: translate(-50%, -50%);
 }
 
-.draw-mark::before {
+.draw::before {
   content: '';
   border: solid 1px #00c92c;
   position: absolute;
