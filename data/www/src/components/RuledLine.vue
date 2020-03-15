@@ -36,7 +36,7 @@ export default {
         // rowもcolumnも1から始まっているため
         row--
         column--
-        // initSquareClasses()で予め保存しておいた2次元配列のdataにアクセスする
+        // calcSquareClasses()で予め保存しておいた2次元配列のdataにアクセスする
         // もし排列要素がなければ''を返す。
         if (this.$data.squareClasses[row] === undefined) {
           return ''
@@ -49,7 +49,7 @@ export default {
     }
   },
   methods: {
-    initSquareClasses: function () {
+    calcSquareClasses: function () {
       let rightShiftCount = 0
       let index = 0
       let classArray = new Array(RULED_LINE_WIDTH)
@@ -75,7 +75,7 @@ export default {
   },
   watch: {
     gameResults: function () {
-      this.$data.squareClasses = this.initSquareClasses()
+      this.$data.squareClasses = this.calcSquareClasses()
     }
   }
 }
