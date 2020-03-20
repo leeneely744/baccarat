@@ -26,7 +26,7 @@ export default {
     return {
       width: RULED_LINE_WIDTH,
       height: RULED_LINE_HEIGHT,
-      squareClasses: []
+      squareClasses: {}
     }
   },
   computed: {
@@ -36,15 +36,16 @@ export default {
         // rowもcolumnも1から始まっているため
         row--
         column--
-        // calcSquareClasses()で予め保存しておいた2次元配列のdataにアクセスする
+        // calcSquareClasses()で予め保存しておいたdataにアクセスする
         // もし排列要素がなければ''を返す。
-        if (this.$data.squareClasses[row] === undefined) {
+        let targetIndex = this.getSquareClassIndexFormat(row, column)
+        if (this.squareClasses === undefined) {
           return ''
         }
-        if (this.$data.squareClasses[row][column] === undefined) {
+        if (this.squareClasses[targetIndex] === undefined) {
           return ''
         }
-        return this.$data.squareClasses[row][column]
+        return this.squareClasses[targetIndex]
       }
     }
   },
@@ -52,30 +53,25 @@ export default {
     calcSquareClasses: function () {
       let rightShiftCount = 0
       let index = 0
-      let classArray = new Array(RULED_LINE_WIDTH)
-      let tmpColum = new Array(RULED_LINE_HEIGHT)
       let preResult = 'draw'
       this.gameResults.forEach(result => {
-        if (rightShiftCount > 0 && preResult !== result && preResult !== 'draw') {
+        if (preResult !== result && preResult !== 'draw') {
           rightShiftCount++
-        }
-
-        tmpColum[index] = result
-        index++
-        if (result === 'draw') {
           index = 0
-          rightShiftCount++
         }
-        classArray[rightShiftCount] = tmpColum
-
+        index++
         preResult = result
       })
-      return classArray
+      let targetIndex = this.getSquareClassIndexFormat(rightShiftCount, index)
+      this.squareClasses[targetIndex] = preResult
+    },
+    getSquareClassIndexFormat: function (shift, index) {
+      return shift.toString() + '-' + index.toString()
     }
   },
   watch: {
     gameResults: function () {
-      this.$data.squareClasses = this.calcSquareClasses()
+      this.calcSquareClasses()
     }
   }
 }
