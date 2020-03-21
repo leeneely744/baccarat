@@ -62,8 +62,9 @@ export default {
         index++
         preResult = result
       })
-      let targetIndex = this.getSquareClassIndexFormat(rightShiftCount, index)
-      this.squareClasses[targetIndex] = preResult
+      // indexは一つ余計に進んでいるので戻す
+      let targetIndex = this.getSquareClassIndexFormat(rightShiftCount, index - 1)
+      return {'index': targetIndex, 'value': preResult}
     },
     getSquareClassIndexFormat: function (shift, index) {
       return shift.toString() + '-' + index.toString()
@@ -71,7 +72,8 @@ export default {
   },
   watch: {
     gameResults: function () {
-      this.calcSquareClasses()
+      let res = this.calcSquareClasses()
+      this.$set(this.squareClasses, res.index, res.value)
     }
   }
 }
