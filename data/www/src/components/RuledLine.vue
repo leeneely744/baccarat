@@ -55,7 +55,7 @@ export default {
       let index = 0
       let preResult = 'draw'
       this.gameResults.forEach(result => {
-        if (preResult !== result && preResult !== 'draw') {
+        if (preResult !== result && preResult !== 'draw' && result !== 'draw') {
           rightShiftCount++
           index = 0
         }
