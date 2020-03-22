@@ -20,17 +20,23 @@
 
 <script>
 import card from './Card'
-import { mapState, mapMutations, mapActions } from 'vuex'
+import { BASE_VALUE_REDRAW_CARD, judgeTheWinner } from '../geme'
+import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'game-board',
   props: {
-    afterPlay: {
+    showInitDeckModal: {
       type: Function,
       required: true
     }
   },
   computed: {
+    ...mapGetters([
+      'playerSum',
+      'bankerSum',
+      'countDeck'
+    ]),
     ...mapState([
       'banker',
       'player'
@@ -41,14 +47,45 @@ export default {
   },
   methods: {
     ...mapMutations([
+      'pushWinner',
       'drawing'
     ]),
     ...mapActions([
-      'play'
+      'play',
+      'extraPlay'
     ]),
+    isDrawnCard3: function (card3) {
+      if (card3 === null) {
+        return false
+      } else if (card3 === undefined) {
+        return false
+      } else {
+        return true
+      }
+    },
+    shouldDraw3rdCard: function () {
+      if (
+        this.playerSum < BASE_VALUE_REDRAW_CARD &&
+        !this.isDrawnCard3(this.player.card3) &&
+        this.player.card1 !== undefined &&
+        this.banker.card1 !== undefined
+      ) {
+        return true
+      }
+      return false
+    },
     onClickPlayButton: function () {
       this.play()
-      this.afterPlay()
+      if (this.shouldDraw3rdCard()) {
+        this.extraPlay()
+      }
+
+      let payload = {'winner': judgeTheWinner(this.playerSum, this.bankerSum)}
+      this.pushWinner(payload)
+
+      if (this.countDeck <= 6) {
+        this.showInitDeckModal()
+      }
     }
   }
 }

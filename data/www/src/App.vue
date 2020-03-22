@@ -25,7 +25,7 @@
     </modal>
     <div id="game-panel"
       @closed="closeAction">
-      <game-board id="game-board-area" :after-play="afterPlay"/>
+      <game-board id="game-board-area" :show-init-deck-modal="showInitDeckModal"/>
       <ruled-line id="ruled-line-panel" :game-results="this.winners"/>
       <game-state id="info-panel"></game-state>
     </div>
@@ -37,8 +37,7 @@ import GameBoard from './components/GameBoard'
 import GameState from './components/GameState'
 import RuledLine from './components/RuledLine'
 
-import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
-import { BASE_VALUE_REDRAW_CARD, judgeTheWinner } from './geme'
+import { mapState, mapGetters, mapMutations } from 'vuex'
 
 // <modal name="" の値を一覧化する
 const modalName = {
@@ -54,9 +53,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'playerSum',
-      'bankerSum',
-      'countDeck'
+      'playerSum'
     ]),
     ...mapState([
       'player',
@@ -84,44 +81,11 @@ export default {
         this.initDeck()
       }
     },
-    isDrawnCard3: function (card3) {
-      if (card3 === null) {
-        return false
-      } else if (card3 === undefined) {
-        return false
-      } else {
-        return true
-      }
-    },
     ...mapMutations([
-      'pushWinner',
       'initDeck'
     ]),
-    ...mapActions([
-      'extraPlay'
-    ]),
-    shouldDraw3rdCard: function () {
-      if (
-        this.playerSum < BASE_VALUE_REDRAW_CARD &&
-        !this.isDrawnCard3(this.player.card3) &&
-        this.player.card1 !== undefined &&
-        this.banker.card1 !== undefined
-      ) {
-        return true
-      }
-      return false
-    },
-    afterPlay: function () {
-      if (this.shouldDraw3rdCard() === true) {
-        this.showModal(modalName.indicateWinnerModal)
-      } else {
-        let payload = {'winner': judgeTheWinner(this.playerSum, this.bankerSum)}
-        this.pushWinner(payload)
-      }
-
-      if (this.countDeck <= 6) {
-        this.showModal(modalName.initDeckModal)
-      }
+    showInitDeckModal: function () {
+      this.showModal(modalName.initDeckModal)
     }
   }
 }
