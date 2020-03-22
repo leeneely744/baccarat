@@ -19,7 +19,7 @@
         <h2>お知らせ</h2>
       </div>
       <div class="modal-body">
-        <p>山札が6枚以下になったので、山札を初期化します</p>
+        <p>山札が{{ deckNumMin }}枚以下になったので、山札を初期化します</p>
         <button v-on:click="hideInitModal">OK</button>
       </div>
     </modal>
@@ -39,6 +39,8 @@ import RuledLine from './components/RuledLine'
 
 import { mapState, mapGetters, mapMutations } from 'vuex'
 
+import { DECK_NUM_MIN } from './geme'
+
 // <modal name="" の値を一覧化する
 const modalName = {
   initDeckModal: 'init-deck-modal',
@@ -50,6 +52,11 @@ export default {
     GameBoard,
     GameState,
     RuledLine
+  },
+  data: function () {
+    return {
+      deckNumMin: DECK_NUM_MIN
+    }
   },
   computed: {
     ...mapGetters([

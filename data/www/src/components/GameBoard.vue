@@ -20,8 +20,10 @@
 
 <script>
 import card from './Card'
-import { BASE_VALUE_REDRAW_CARD, judgeTheWinner } from '../geme'
+
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
+
+import { BASE_VALUE_REDRAW_CARD, judgeTheWinner, DECK_NUM_MIN } from '../geme'
 
 export default {
   name: 'game-board',
@@ -83,7 +85,7 @@ export default {
       let payload = {'winner': judgeTheWinner(this.playerSum, this.bankerSum)}
       this.pushWinner(payload)
 
-      if (this.countDeck <= 6) {
+      if (this.countDeck <= DECK_NUM_MIN) {
         this.showInitDeckModal()
       }
     }

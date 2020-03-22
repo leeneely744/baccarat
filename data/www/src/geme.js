@@ -1,5 +1,7 @@
 // プレイヤーの得点が5以下なら3枚目のカードが（バンカーも）引かれる。
 export const BASE_VALUE_REDRAW_CARD = 5
+// デッキがこの枚数以下になったらデッキを初期化する
+export const DECK_NUM_MIN = 6
 
 // カード名から数字を取り出すメソッド
 // 'club_03', 'spade_13'のような値を想定している
