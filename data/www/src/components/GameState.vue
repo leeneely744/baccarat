@@ -6,15 +6,15 @@
         tr
           th 1,000円チップ：{{ tip1000 }}
           th
-            button(v-on:click="addTip({unit: 1000, amount: 1})") 1,000円チップ追加
+            button(v-on:click="addTip({unit: 1000, amount: 1})") 1,000円チップ購入
         tr
           th 5,000円チップ：{{ tip5000 }}
           th
-            button(v-on:click="addTip({unit: 5000, amount: 1})") 5,000円チップ追加
+            button(v-on:click="addTip({unit: 5000, amount: 1})") 5,000円チップ購入
         tr
           th 10,000円チップ：{{ tip10000 }}
           th
-            button(v-on:click="addTip({unit: 10000, amount: 1})") 10,000円チップ追加
+            button(v-on:click="addTip({unit: 10000, amount: 1})") 10,000円チップ購入
 </template>
 
 <script>

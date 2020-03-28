@@ -17,4 +17,7 @@ export let tipTypes = {
  *    ...
  *  }
  */
-export let tipState = _.mapKeys(tipTypes, (value, key) => `tip${key}`)
+export let havingTips = _.mapKeys(tipTypes, (value, key) => `tip${key}`)
+
+// かけているチップの記録
+export let bettingTips = _.mapKeys(tipTypes, (value, key) => `tip${key}`)

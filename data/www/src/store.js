@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import { tipState } from './tip'
+import { havingTips, bettingTips } from './tip'
 import { drawCardFromDeck, deckInit } from './deck'
 import { getCardNum } from './geme'
 
@@ -12,7 +12,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     usedMoney: 0,
-    tip: tipState,
+    havingTips: havingTips,
+    bettingTips: bettingTips,
     deck: deckInit,
     banker: {
       card1: null,
@@ -51,7 +52,7 @@ export default new Vuex.Store({
       state.usedMoney += amount
     },
     addTip (state, payload) {
-      state.tip[`tip${payload.unit}`] += payload.amount
+      state.havingTips[`tip${payload.unit}`] += payload.amount
       state.usedMoney += payload.unit * payload.amount
     },
     drawing (state, payload) {
