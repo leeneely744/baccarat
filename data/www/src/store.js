@@ -51,9 +51,6 @@ export default new Vuex.Store({
       for (let [key, value] of Object.entries(state.havingTips)) {
         sum += value * parseInt(key)
       }
-      for (let [key, value] of Object.entries(state.bettingTips)) {
-        sum += value * parseInt(key)
-      }
       return sum
     }
   },
