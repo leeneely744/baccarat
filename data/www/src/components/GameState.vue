@@ -2,26 +2,25 @@
   div
     div 使用した金額は{{ usedMoney }}円です。
     div 所持しているチップ
-      table
+      table( v-for="(val, unit) in tipTypes" :key=unit )
         tr
-          th 所持1,000円チップ：{{ havingTips.tip1000 }}個
+          th 所持{{ unit }}円チップ：{{ havingTips["tip" + unit] }}個
           th
-            button(v-on:click="addTip({unit: 1000, amount: 1})") 1,000円チップ購入
-        tr
-          th 所持5,000円チップ：{{ havingTips.tip5000 }}個
-          th
-            button(v-on:click="addTip({unit: 5000, amount: 1})") 5,000円チップ購入
-        tr
-          th 所持10,000円チップ：{{ havingTips.tip10000 }}個
-          th
-            button(v-on:click="addTip({unit: 10000, amount: 1})") 10,000円チップ購入
+            button(v-on:click="addTip({unit: unit, amount: 1})") {{ unit }}円チップ購入
 </template>
 
 <script>
 import { mapState, mapMutations } from 'vuex'
 
+import { tipTypes } from '../tip'
+
 export default {
   name: 'game-state',
+  data: function () {
+    return {
+      tipTypes: tipTypes
+    }
+  },
   computed: {
     ...mapState([
       'usedMoney',
