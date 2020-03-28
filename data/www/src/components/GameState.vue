@@ -1,7 +1,7 @@
 <template lang='pug'>
   div
-    div 使用した金額は{{ usedMoney }}円です。
-    div 所持しているチップ
+    div 使用した金額: {{ usedMoney }}円
+    div 所持チップ合計: {{ tipSum }}円
       table( v-for="(val, unit) in tipTypes" :key=unit )
         tr
           th
@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapGetters } from 'vuex'
 
 import { tipTypes } from '../tip'
 
@@ -25,6 +25,9 @@ export default {
     ...mapState([
       'usedMoney',
       'havingTips'
+    ]),
+    ...mapGetters([
+      'tipSum'
     ])
   },
   methods: {

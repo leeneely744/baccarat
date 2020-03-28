@@ -45,6 +45,16 @@ export default new Vuex.Store({
         return 0
       }
       return state.deck.length
+    },
+    tipSum (state) {
+      let sum = 0
+      for (let [key, value] of Object.entries(state.havingTips)) {
+        sum += value * parseInt(key)
+      }
+      for (let [key, value] of Object.entries(state.bettingTips)) {
+        sum += value * parseInt(key)
+      }
+      return sum
     }
   },
   mutations: {
