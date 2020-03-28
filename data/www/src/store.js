@@ -62,6 +62,9 @@ export default new Vuex.Store({
       state.havingTips[`${payload.unit}`] += payload.amount
       state.usedMoney += payload.unit * payload.amount
     },
+    betTip (state, payload) {
+      state.bettingTips[`${payload.unit}`] += payload.amount
+    },
     drawing (state, payload) {
       let result = drawCardFromDeck(state.deck)
       let people = payload['people']

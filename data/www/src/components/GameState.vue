@@ -5,8 +5,11 @@
       table( v-for="(val, unit) in tipTypes" :key=unit )
         tr
           th
-            button(v-on:click="addTip({unit: unit, amount: 1})") {{ unit }}円チップ購入
+            button(v-on:click="addTip({unit: unit, amount: 1})") 購入
           th 所持{{ unit }}円チップ：{{ havingTips[unit] }}個
+          th
+            button(v-on:click="betTip({unit: unit, amount: 1})") ベット
+          th ベット{{ unit }}円チップ：{{ bettingTips[unit] }}個
 </template>
 
 <script>
@@ -24,7 +27,8 @@ export default {
   computed: {
     ...mapState([
       'usedMoney',
-      'havingTips'
+      'havingTips',
+      'bettingTips'
     ]),
     ...mapGetters([
       'tipSum'
@@ -32,7 +36,8 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'addTip'
+      'addTip',
+      'betTip'
     ])
   }
 }
