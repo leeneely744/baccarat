@@ -54,17 +54,21 @@ export default {
       let rightShiftCount = 0
       let index = 0
       let preResult = 'draw'
+      let lastResult = 'draw'
       this.gameResults.forEach(result => {
         if (preResult !== result && preResult !== 'draw' && result !== 'draw') {
           rightShiftCount++
           index = 0
         }
         index++
-        preResult = result
+        if (result !== 'draw') {
+          preResult = result
+        }
+        lastResult = result
       })
       // indexは一つ余計に進んでいるので戻す
       let targetIndex = this.getSquareClassIndexFormat(rightShiftCount, index - 1)
-      return {'index': targetIndex, 'value': preResult}
+      return {'index': targetIndex, 'value': lastResult}
     },
     getSquareClassIndexFormat: function (shift, index) {
       return shift.toString() + '-' + index.toString()
