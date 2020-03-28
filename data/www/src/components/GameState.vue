@@ -4,15 +4,15 @@
     div 所持しているチップ
       table
         tr
-          th 1,000円チップ：{{ tip1000 }}
+          th 所持1,000円チップ：{{ havingTips.tip1000 }}個
           th
             button(v-on:click="addTip({unit: 1000, amount: 1})") 1,000円チップ購入
         tr
-          th 5,000円チップ：{{ tip5000 }}
+          th 所持5,000円チップ：{{ havingTips.tip5000 }}個
           th
             button(v-on:click="addTip({unit: 5000, amount: 1})") 5,000円チップ購入
         tr
-          th 10,000円チップ：{{ tip10000 }}
+          th 所持10,000円チップ：{{ havingTips.tip10000 }}個
           th
             button(v-on:click="addTip({unit: 10000, amount: 1})") 10,000円チップ購入
 </template>
@@ -25,9 +25,7 @@ export default {
   computed: {
     ...mapState([
       'usedMoney',
-      'tip1000',
-      'tip5000',
-      'tip10000'
+      'havingTips'
     ])
   },
   methods: {
