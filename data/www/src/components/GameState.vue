@@ -6,7 +6,7 @@
         tr
           th
             button(v-on:click="addTip({unit: unit, amount: 1})") {{ unit }}円チップ購入
-          th 所持{{ unit }}円チップ：{{ havingTips["tip" + unit] }}個
+          th 所持{{ unit }}円チップ：{{ havingTips[unit] }}個
 </template>
 
 <script>

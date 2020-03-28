@@ -52,7 +52,7 @@ export default new Vuex.Store({
       state.usedMoney += amount
     },
     addTip (state, payload) {
-      state.havingTips[`tip${payload.unit}`] += payload.amount
+      state.havingTips[`${payload.unit}`] += payload.amount
       state.usedMoney += payload.unit * payload.amount
     },
     drawing (state, payload) {

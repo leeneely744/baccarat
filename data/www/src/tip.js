@@ -12,12 +12,12 @@ export let tipTypes = {
 /**
  * 所持チップの初期stateとして、store.tipに代入する
  * tip: {
- *    tip1000: 0,
- *    tip5000: 0
+ *    1000: 0,
+ *    5000: 0
  *    ...
  *  }
  */
-export let havingTips = _.mapKeys(tipTypes, (value, key) => `tip${key}`)
+export let havingTips = _.mapKeys(tipTypes, (value, key) => `${key}`)
 
 // かけているチップの記録
-export let bettingTips = _.mapKeys(tipTypes, (value, key) => `tip${key}`)
+export let bettingTips = _.mapKeys(tipTypes, (value, key) => `${key}`)
