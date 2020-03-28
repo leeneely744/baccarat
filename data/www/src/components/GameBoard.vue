@@ -50,7 +50,8 @@ export default {
   methods: {
     ...mapMutations([
       'pushWinner',
-      'drawing'
+      'drawing',
+      'initGroundCards'
     ]),
     ...mapActions([
       'play',
@@ -77,6 +78,7 @@ export default {
       return false
     },
     onClickPlayButton: function () {
+      this.initGroundCards()
       this.play()
       if (this.shouldDraw3rdCard()) {
         this.extraPlay()

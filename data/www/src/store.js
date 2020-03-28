@@ -68,6 +68,14 @@ export default new Vuex.Store({
     },
     initDeck (state) {
       state.deck = deckInit
+    },
+    initGroundCards (state) {
+      state.player.card1 = null
+      state.player.card2 = null
+      state.player.card3 = null
+      state.banker.card1 = null
+      state.banker.card2 = null
+      state.banker.card3 = null
     }
   },
   actions: {
