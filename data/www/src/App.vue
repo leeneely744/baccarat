@@ -28,6 +28,7 @@
       <game-board id="game-board-area" :show-init-deck-modal="showInitDeckModal"/>
       <ruled-line id="ruled-line-panel" :game-results="this.winners"/>
       <game-state id="info-panel"></game-state>
+      <bet-controller id="bet-controller" />
     </div>
   </div>
 </template>
@@ -36,6 +37,7 @@
 import GameBoard from './components/GameBoard'
 import GameState from './components/GameState'
 import RuledLine from './components/RuledLine'
+import BetController from './components/BetController'
 
 import { mapState, mapGetters, mapMutations } from 'vuex'
 
@@ -51,7 +53,8 @@ export default {
   components: {
     GameBoard,
     GameState,
-    RuledLine
+    RuledLine,
+    BetController
   },
   data: function () {
     return {
@@ -103,7 +106,7 @@ export default {
   display: grid;
   grid-template-areas:
     'game-board-area ruled-line-area'
-    'game-board-area info-area';
+    'bet-controller-area info-area';
 }
 
 #game-board-panel {
@@ -118,6 +121,10 @@ export default {
 #info-panel {
   grid-area: info-area;
   background-color: #C4F66F;
+}
+
+#bet-controller {
+  grid-area: bet-controller-area;
 }
 
 .modal-header, .modal-body {
