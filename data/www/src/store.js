@@ -63,7 +63,7 @@ export default new Vuex.Store({
       state.usedMoney += payload.unit * payload.amount
     },
     betTip (state, payload) {
-      state.bettingTips[`${payload.unit}`] += payload.amount
+      state.bettingTips[`${payload.par}`][`${payload.coin}`] += parseInt(payload.amount)
     },
     drawing (state, payload) {
       let result = drawCardFromDeck(state.deck)
