@@ -39,7 +39,8 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'betTip'
+      'betTip',
+      'useTip'
     ]),
     onClickBetButton: function () {
       this.betTip({
@@ -47,6 +48,8 @@ export default {
         coin: this.selectedCoin,
         amount: parseInt(this.betAmount)
       })
+      this.useTip({coin: this.selectedCoin, amount: this.betAmount})
+      // TODO: 持ってる数より大きな値が入ってきた時の処理を追加
     }
   }
 }

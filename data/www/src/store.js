@@ -62,6 +62,9 @@ export default new Vuex.Store({
       state.havingTips[`${payload.unit}`] += payload.amount
       state.usedMoney += payload.unit * payload.amount
     },
+    useTip (state, payload) {
+      state.havingTips[`${payload.coin}`] -= payload.amount
+    },
     betTip (state, payload) {
       state.bettingTips[`${payload.par}`][`${payload.coin}`] += parseInt(payload.amount)
     },
