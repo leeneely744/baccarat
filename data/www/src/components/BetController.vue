@@ -7,7 +7,7 @@
       option( v-for="(cal, unit) in participants" :value="unit" :key=unit ) {{ unit }}
     div に
     input( type="numeric" v-model="betAmount" :max="maxOfTip" min="0")
-    //- TODO: max以上の数字を入れられたらエラーメッセージ表示
+    .error#more-than-have( v-show="invalidTipNum") ※ 所持しているチップよりも小さい数を入力してください
     div 枚
     button(v-on:click="onClickBetButton") ベットする
 </template>
@@ -35,6 +35,12 @@ export default {
     ]),
     maxOfTip: function () {
       return this.havingTips[this.selectedCoin]
+    },
+    invalidTipNum: function () {
+      if (this.betAmount > this.havingTips[this.selectedCoin]) {
+        return true
+      }
+      return false
     }
   },
   methods: {
@@ -57,4 +63,7 @@ export default {
 
 <style scoped>
 
+.error {
+  color: red
+}
 </style>
