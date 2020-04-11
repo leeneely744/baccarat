@@ -9,7 +9,7 @@
     input( type="numeric" v-model="betAmount" :max="maxOfTip" min="0")
     .error#more-than-have( v-show="invalidTipNum") ※ 所持しているチップよりも小さい数を入力してください
     div 枚
-    button(v-on:click="onClickBetButton") ベットする
+    button( v-show="!invalidTipNum" v-on:click="onClickBetButton") ベットする
 </template>
 
 <script>
@@ -49,6 +49,9 @@ export default {
       'useTip'
     ]),
     onClickBetButton: function () {
+      if (this.invalidTipNum) {
+        return
+      }
       this.betTip({
         par: this.selectedParticipant,
         coin: this.selectedCoin,
