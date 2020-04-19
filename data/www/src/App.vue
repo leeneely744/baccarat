@@ -1,15 +1,14 @@
 <template>
   <div>
     <modal name="indicate-winner-modal"
-      :draggable="true"
-      @closed="closeAction('indicate-winner-modal')">
+      :draggable="true">
       <div class="modal-header">
         <h2>ゲーム結果</h2>
       </div>
       <div class="modal-body">
         <p>プレイヤーの点数：{{ this.$store.getters.playerSum }}</p>
-        <p>追加のカードを引きます</p>
-        <button v-on:click="hideResultModal">OK</button>
+        <p v-if="shouldDraw3rdCard()">追加のカードを引きます</p>
+        <button @click="extraPlayNecessary()">OK</button>
       </div>
     </modal>
     <modal name="init-deck-modal"
@@ -20,12 +19,12 @@
       </div>
       <div class="modal-body">
         <p>山札が{{ deckNumMin }}枚以下になったので、山札を初期化します</p>
-        <button v-on:click="hideInitModal">OK</button>
+        <button v-on:click="hideModal">OK</button>
       </div>
     </modal>
     <div id="game-panel"
       @closed="closeAction">
-      <game-board id="game-board-area" :show-init-deck-modal="showInitDeckModal"/>
+      <game-board id="game-board-area" :on-click-play-button="onClickPlayButton"/>
       <ruled-line id="ruled-line-panel" :game-results="this.winners"/>
       <game-state id="info-panel"></game-state>
       <bet-controller id="bet-controller" />
@@ -39,9 +38,9 @@ import GameState from './components/GameState'
 import RuledLine from './components/RuledLine'
 import BetController from './components/BetController'
 
-import { mapState, mapGetters, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 
-import { DECK_NUM_MIN } from './geme'
+import { BASE_VALUE_REDRAW_CARD, judgeTheWinner, DECK_NUM_MIN } from './geme'
 
 // <modal name="" の値を一覧化する
 const modalName = {
@@ -63,7 +62,9 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'playerSum'
+      'playerSum',
+      'bankerSum',
+      'countDeck'
     ]),
     ...mapState([
       'player',
@@ -72,17 +73,14 @@ export default {
     ])
   },
   methods: {
-    showModal: function (modalNameArg) {
+    async showModal (modalNameArg) {
       this.$modal.show(modalNameArg)
     },
     hideModal: function (modalNameArg) {
-      this.$modal.hide(modalNameArg)
-    },
-    hideResultModal: function () {
-      this.$modal.hide(modalName.indicateWinnerModal)
-    },
-    hideInitModal: function () {
-      this.$modal.hide(modalName.initDeckModal)
+      return new Promise(resolve => {
+        this.$modal.hide(modalNameArg)
+        return modalNameArg
+      })
     },
     closeAction: function (modalNameArg) {
       if (modalNameArg === modalName.indicateWinnerModal) {
@@ -92,10 +90,57 @@ export default {
       }
     },
     ...mapMutations([
-      'initDeck'
+      'pushWinner',
+      'drawing'
     ]),
-    showInitDeckModal: function () {
-      this.showModal(modalName.initDeckModal)
+    ...mapActions([
+      'play',
+      'extraPlay'
+    ]),
+    ...mapMutations([
+      'initDeck',
+      'initGroundCards'
+    ]),
+    isDrawnCard3: function (card3) {
+      if (card3 === null) {
+        return false
+      } else if (card3 === undefined) {
+        return false
+      } else {
+        return true
+      }
+    },
+    shouldDraw3rdCard () {
+      if (
+        this.playerSum < BASE_VALUE_REDRAW_CARD &&
+        !this.isDrawnCard3(this.player.card3) &&
+        this.player.card1 !== undefined &&
+        this.banker.card1 !== undefined
+      ) {
+        return true
+      }
+      return false
+    },
+    async onClickPlayButton () {
+      this.initGroundCards()
+      this.play()
+      this.showModal(modalName.indicateWinnerModal)
+    },
+    async extraPlayNecessary () {
+      this.hideModal(modalName.indicateWinnerModal)
+      if (this.shouldDraw3rdCard()) {
+        this.extraPlay()
+        this.showModal(modalName.indicateWinnerModal)
+      } else {
+        this.recordWinner()
+      }
+    },
+    recordWinner () {
+      let payload = {'winner': judgeTheWinner(this.playerSum, this.bankerSum)}
+      this.pushWinner(payload)
+      if (this.countDeck <= DECK_NUM_MIN) {
+        this.showModal(modalName.initDeckModal)
+      }
     }
   }
 }

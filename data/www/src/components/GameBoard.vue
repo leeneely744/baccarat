@@ -21,24 +21,18 @@
 <script>
 import card from './Card'
 
-import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
-
-import { BASE_VALUE_REDRAW_CARD, judgeTheWinner, DECK_NUM_MIN } from '../geme'
+import { mapState } from 'vuex'
 
 export default {
+
   name: 'game-board',
   props: {
-    showInitDeckModal: {
+    onClickPlayButton: {
       type: Function,
       required: true
     }
   },
   computed: {
-    ...mapGetters([
-      'playerSum',
-      'bankerSum',
-      'countDeck'
-    ]),
     ...mapState([
       'banker',
       'player'
@@ -46,51 +40,6 @@ export default {
   },
   components: {
     card
-  },
-  methods: {
-    ...mapMutations([
-      'pushWinner',
-      'drawing',
-      'initGroundCards'
-    ]),
-    ...mapActions([
-      'play',
-      'extraPlay'
-    ]),
-    isDrawnCard3: function (card3) {
-      if (card3 === null) {
-        return false
-      } else if (card3 === undefined) {
-        return false
-      } else {
-        return true
-      }
-    },
-    shouldDraw3rdCard: function () {
-      if (
-        this.playerSum < BASE_VALUE_REDRAW_CARD &&
-        !this.isDrawnCard3(this.player.card3) &&
-        this.player.card1 !== undefined &&
-        this.banker.card1 !== undefined
-      ) {
-        return true
-      }
-      return false
-    },
-    onClickPlayButton: function () {
-      this.initGroundCards()
-      this.play()
-      if (this.shouldDraw3rdCard()) {
-        this.extraPlay()
-      }
-
-      let payload = {'winner': judgeTheWinner(this.playerSum, this.bankerSum)}
-      this.pushWinner(payload)
-
-      if (this.countDeck <= DECK_NUM_MIN) {
-        this.showInitDeckModal()
-      }
-    }
   }
 }
 </script>
